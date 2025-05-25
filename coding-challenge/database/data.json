@@ -1,0 +1,729 @@
+{
+  "categories": [
+    {
+      "name": "Televisions",
+      "slug": "televisions",
+      "attributeSchema": {
+        "brand": { "type": "string", "required": true },
+        "screenSize": { "type": "string", "required": true },
+        "resolution": { "type": "string", "required": true },
+        "condition": {
+          "type": "string",
+          "enum": ["new", "used", "refurbished"]
+        }
+      }
+    },
+    {
+      "name": "Running Shoes",
+      "slug": "running-shoes",
+      "attributeSchema": {
+        "brand": { "type": "string", "required": true },
+        "size": { "type": "string", "required": true },
+        "color": { "type": "string", "required": true },
+        "condition": { "type": "string", "enum": ["new", "used", "like-new"] }
+      }
+    }
+  ],
+  "listings": [
+    {
+      "title": "Samsung 65\" QLED 4K Smart TV",
+      "description": "Immersive 4K UHD picture quality with Quantum Dot technology. Smart TV features with built-in streaming apps.",
+      "price": 1299.99,
+      "location": "New York, NY",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "Samsung",
+        "screenSize": "65 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1"
+    },
+    {
+      "title": "LG 55\" OLED Smart TV",
+      "description": "Perfect black levels and infinite contrast with OLED technology. Dolby Vision and Atmos support.",
+      "price": 1499.99,
+      "location": "Los Angeles, CA",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "LG",
+        "screenSize": "55 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "Sony 75\" LED 4K TV",
+      "description": "Crystal clear picture with Sony's X1 processor. Google TV platform with voice control.",
+      "price": 1799.99,
+      "location": "Chicago, IL",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "Sony",
+        "screenSize": "75 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "TCL 50\" 4K Roku TV",
+      "description": "Affordable 4K TV with built-in Roku streaming platform. Great value for money.",
+      "price": 399.99,
+      "location": "Houston, TX",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "TCL",
+        "screenSize": "50 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "Hisense 70\" ULED 4K TV",
+      "description": "Large screen ULED display with local dimming. Great for home theater setup.",
+      "price": 899.99,
+      "location": "Phoenix, AZ",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "Hisense",
+        "screenSize": "70 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "Vizio 65\" M-Series 4K TV",
+      "description": "Premium picture quality with Active Full Array backlighting. SmartCast platform included.",
+      "price": 799.99,
+      "location": "Denver, CO",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "Vizio",
+        "screenSize": "65 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "Samsung 85\" 8K QLED TV",
+      "description": "Ultra-premium 8K resolution with Quantum HDR. Perfect for luxury home theater.",
+      "price": 4999.99,
+      "location": "Miami, FL",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "Samsung",
+        "screenSize": "85 inch",
+        "resolution": "8K",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "LG 48\" OLED Gaming TV",
+      "description": "Perfect for gaming with 120Hz refresh rate and HDMI 2.1. Low input lag and VRR support.",
+      "price": 999.99,
+      "location": "Seattle, WA",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "LG",
+        "screenSize": "48 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "Sony 55\" A80K OLED TV",
+      "description": "Premium OLED with Acoustic Surface Audio. Perfect for movie enthusiasts.",
+      "price": 1999.99,
+      "location": "San Francisco, CA",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "Sony",
+        "screenSize": "55 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "Samsung 43\" Frame TV",
+      "description": "Art mode transforms your TV into a beautiful display. Matte display reduces glare.",
+      "price": 999.99,
+      "location": "Boston, MA",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "Samsung",
+        "screenSize": "43 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "Nike Air Zoom Pegasus 38",
+      "description": "Versatile running shoe with responsive cushioning. Perfect for daily training and long runs.",
+      "price": 119.99,
+      "location": "Miami, FL",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "Nike",
+        "size": "10",
+        "color": "Black/White",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+    },
+    {
+      "title": "Adidas Ultraboost 22",
+      "description": "Premium running shoe with Boost midsole for energy return. Primeknit upper for comfort.",
+      "price": 179.99,
+      "location": "Seattle, WA",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "Adidas",
+        "size": "9.5",
+        "color": "Core Black",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1560769629-975ec94e6a86"
+    },
+    {
+      "title": "Brooks Ghost 14",
+      "description": "Smooth ride with balanced cushioning. Ideal for neutral runners seeking comfort.",
+      "price": 129.99,
+      "location": "Boston, MA",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "Brooks",
+        "size": "11",
+        "color": "Gray/Blue",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1549298916-b41d501d3772"
+    },
+    {
+      "title": "Hoka Clifton 8",
+      "description": "Lightweight and cushioned for long-distance running. Meta-Rocker technology for smooth transitions.",
+      "price": 139.99,
+      "location": "Portland, OR",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "Hoka",
+        "size": "10.5",
+        "color": "White/Blue",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1543508282-6319a3e2621f"
+    },
+    {
+      "title": "New Balance Fresh Foam 1080v12",
+      "description": "Plush cushioning with Fresh Foam midsole. Perfect for long runs and recovery days.",
+      "price": 159.99,
+      "location": "Austin, TX",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "New Balance",
+        "size": "9",
+        "color": "Gray/Red",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1512374382149-233c42b6a83b"
+    },
+    {
+      "title": "Asics Gel-Nimbus 24",
+      "description": "Maximum cushioning with Gel technology. Ideal for high-mileage runners.",
+      "price": 159.99,
+      "location": "San Diego, CA",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "Asics",
+        "size": "10",
+        "color": "Blue/Orange",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a"
+    },
+    {
+      "title": "Saucony Ride 15",
+      "description": "Versatile daily trainer with PWRRUN cushioning. Great for all types of runs.",
+      "price": 119.99,
+      "location": "Philadelphia, PA",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "Saucony",
+        "size": "11.5",
+        "color": "Black/Green",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1567690187548-f07b1d7bf5a9"
+    },
+    {
+      "title": "Mizuno Wave Rider 26",
+      "description": "Responsive ride with Wave technology. Perfect for neutral runners.",
+      "price": 129.99,
+      "location": "Atlanta, GA",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "Mizuno",
+        "size": "9.5",
+        "color": "Blue/Silver",
+        "condition": "new"
+      },
+      "imageUrl": "https://plus.unsplash.com/premium_photo-1681044639299-3d461cbb9f8b"
+    },
+    {
+      "title": "Altra Torin 5",
+      "description": "Zero-drop design with balanced cushioning. Natural foot positioning.",
+      "price": 139.99,
+      "location": "Denver, CO",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "Altra",
+        "size": "10",
+        "color": "Gray/Orange",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1574974409771-cebec54deb00"
+    },
+    {
+      "title": "On Cloud X",
+      "description": "Swiss-engineered running shoe with CloudTec technology. Versatile for running and training.",
+      "price": 149.99,
+      "location": "Chicago, IL",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "On",
+        "size": "10.5",
+        "color": "White/Black",
+        "condition": "new"
+      },
+      "imageUrl": "https://plus.unsplash.com/premium_photo-1686090448668-8a323ffc622b"
+    },
+    {
+      "title": "Samsung 32\" Frame TV",
+      "description": "Compact Frame TV perfect for smaller spaces. Art mode included.",
+      "price": 599.99,
+      "location": "Portland, OR",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "Samsung",
+        "screenSize": "32 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "Nike ZoomX Vaporfly Next% 2",
+      "description": "Elite racing shoe with carbon fiber plate. Used by professional runners.",
+      "price": 249.99,
+      "location": "Austin, TX",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "Nike",
+        "size": "11",
+        "color": "Bright Crimson",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+    },
+    {
+      "title": "Sony 85\" X95K Mini LED TV",
+      "description": "Premium Mini LED display with XR processor. Perfect for home theater.",
+      "price": 3999.99,
+      "location": "Las Vegas, NV",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "Sony",
+        "screenSize": "85 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "Hoka Clifton 8",
+      "description": "Comfortable daily trainer with plush cushioning. Great for long runs.",
+      "price": 139.99,
+      "location": "San Diego, CA",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "Hoka",
+        "size": "10.5",
+        "color": "White/Blue",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+    },
+    {
+      "title": "LG 77\" G2 OLED TV",
+      "description": "Gallery Series OLED with flush wall mount. Perfect for modern homes.",
+      "price": 3499.99,
+      "location": "Dallas, TX",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "LG",
+        "screenSize": "77 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "Brooks Adrenaline GTS 22",
+      "description": "Stability running shoe with GuideRails support. Perfect for overpronators.",
+      "price": 129.99,
+      "location": "Chicago, IL",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "Brooks",
+        "size": "9",
+        "color": "Gray/Blue",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+    },
+    {
+      "title": "Samsung 98\" QN90B Neo QLED",
+      "description": "Massive 98-inch display with Mini LED technology. Ultimate home theater experience.",
+      "price": 7999.99,
+      "location": "New York, NY",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "Samsung",
+        "screenSize": "98 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "New Balance Fresh Foam 1080v12",
+      "description": "Premium cushioning with Fresh Foam X. Great for long-distance running.",
+      "price": 159.99,
+      "location": "Boston, MA",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "New Balance",
+        "size": "10",
+        "color": "Black/Red",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+    },
+    {
+      "title": "Sony 65\" A95K QD-OLED TV",
+      "description": "First QD-OLED TV with quantum dot technology. Exceptional color accuracy.",
+      "price": 2999.99,
+      "location": "Los Angeles, CA",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "Sony",
+        "screenSize": "65 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "Asics Gel-Nimbus 24",
+      "description": "Premium cushioning with FlyteFoam technology. Perfect for neutral runners.",
+      "price": 159.99,
+      "location": "Seattle, WA",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "Asics",
+        "size": "11.5",
+        "color": "Silver/Blue",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+    },
+    {
+      "title": "LG 42\" C2 OLED TV",
+      "description": "Compact OLED perfect for gaming. 120Hz refresh rate with HDMI 2.1.",
+      "price": 999.99,
+      "location": "San Francisco, CA",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "LG",
+        "screenSize": "42 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "Saucony Endorphin Pro 3",
+      "description": "Carbon-plated racing shoe with PWRRUN PB foam. Elite performance.",
+      "price": 199.99,
+      "location": "Portland, OR",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "Saucony",
+        "size": "10",
+        "color": "White/Orange",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+    },
+    {
+      "title": "Samsung 55\" S95B OLED TV",
+      "description": "First QD-OLED TV from Samsung. Exceptional brightness and color.",
+      "price": 1999.99,
+      "location": "Miami, FL",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "Samsung",
+        "screenSize": "55 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "Mizuno Wave Rider 26",
+      "description": "Smooth ride with Wave technology. Great for daily training.",
+      "price": 129.99,
+      "location": "Denver, CO",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "Mizuno",
+        "size": "9.5",
+        "color": "Blue/White",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+    },
+    {
+      "title": "Sony 48\" A90K OLED TV",
+      "description": "Compact OLED with Acoustic Surface Audio. Perfect for smaller spaces.",
+      "price": 1499.99,
+      "location": "Austin, TX",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "Sony",
+        "screenSize": "48 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "Altra Torin 5",
+      "description": "Zero-drop shoe with balanced cushioning. Natural foot positioning.",
+      "price": 129.99,
+      "location": "Boulder, CO",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "Altra",
+        "size": "10",
+        "color": "Gray/Green",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+    },
+    {
+      "title": "LG 83\" G2 OLED TV",
+      "description": "Gallery Series OLED with flush wall mount. Perfect for large spaces.",
+      "price": 4999.99,
+      "location": "Chicago, IL",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "LG",
+        "screenSize": "83 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "On Cloud X",
+      "description": "Versatile shoe with CloudTec technology. Great for running and training.",
+      "price": 149.99,
+      "location": "San Francisco, CA",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "On",
+        "size": "11",
+        "color": "Black/White",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+    },
+    {
+      "title": "Samsung 75\" QN85B Neo QLED",
+      "description": "Mini LED display with anti-glare technology. Perfect for bright rooms.",
+      "price": 2499.99,
+      "location": "Phoenix, AZ",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "Samsung",
+        "screenSize": "75 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "Brooks Hyperion Tempo",
+      "description": "Lightweight trainer with DNA Flash foam. Great for speed work.",
+      "price": 149.99,
+      "location": "Seattle, WA",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "Brooks",
+        "size": "10.5",
+        "color": "Yellow/Blue",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+    },
+    {
+      "title": "Sony 65\" X90K LED TV",
+      "description": "Full-array LED with XR processor. Great value for performance.",
+      "price": 1299.99,
+      "location": "Portland, OR",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "Sony",
+        "screenSize": "65 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "Nike Zoom Fly 4",
+      "description": "Carbon-infused plate for energy return. Great for tempo runs.",
+      "price": 159.99,
+      "location": "New York, NY",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "Nike",
+        "size": "9",
+        "color": "Gray/Orange",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+    },
+    {
+      "title": "LG 65\" C2 OLED TV",
+      "description": "Popular OLED model with gaming features. Perfect all-rounder.",
+      "price": 1999.99,
+      "location": "Los Angeles, CA",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "LG",
+        "screenSize": "65 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "Hoka Mach 4",
+      "description": "Lightweight trainer with Profly midsole. Great for daily runs.",
+      "price": 129.99,
+      "location": "Austin, TX",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "Hoka",
+        "size": "10",
+        "color": "Blue/White",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+    },
+    {
+      "title": "Samsung 55\" QN90B Neo QLED",
+      "description": "Mini LED display with anti-glare screen. Perfect for bright rooms.",
+      "price": 1499.99,
+      "location": "Miami, FL",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "Samsung",
+        "screenSize": "55 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "Adidas Adizero Adios Pro 2",
+      "description": "Carbon-plated racing shoe with Lightstrike Pro foam. Elite performance.",
+      "price": 199.99,
+      "location": "Boston, MA",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "Adidas",
+        "size": "11",
+        "color": "White/Red",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+    },
+    {
+      "title": "Sony 55\" A80K OLED TV",
+      "description": "OLED with Acoustic Surface Audio. Perfect for movie enthusiasts.",
+      "price": 1799.99,
+      "location": "San Francisco, CA",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "Sony",
+        "screenSize": "55 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "New Balance FuelCell Elite v2",
+      "description": "Carbon-plated racing shoe with FuelCell foam. Elite performance.",
+      "price": 179.99,
+      "location": "Chicago, IL",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "New Balance",
+        "size": "10.5",
+        "color": "Black/Yellow",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+    },
+    {
+      "title": "LG 48\" C2 OLED TV",
+      "description": "Compact OLED perfect for gaming. 120Hz refresh rate.",
+      "price": 999.99,
+      "location": "Seattle, WA",
+      "categoryId": "televisions",
+      "attributes": {
+        "brand": "LG",
+        "screenSize": "48 inch",
+        "resolution": "4K UHD",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1593784991095-a205069470b6"
+    },
+    {
+      "title": "Brooks Glycerin 20",
+      "description": "Maximum cushioning with DNA LOFT v3. Perfect for long runs.",
+      "price": 159.99,
+      "location": "Portland, OR",
+      "categoryId": "running-shoes",
+      "attributes": {
+        "brand": "Brooks",
+        "size": "9.5",
+        "color": "Gray/Pink",
+        "condition": "new"
+      },
+      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "name": "b2b-marketplace",
+  "version": "1.0.0",
+  "description": "B2B marketplace prototype",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "seed": "node seed.js"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@prisma/client": "^6.8.2",
+    "@tailwindcss/postcss": "^4.1.7",
+    "daisyui": "^5.0.37",
+    "next": "^14.0.0",
+    "prisma": "^6.8.2",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.15.21",
+    "@types/react": "19.1.5",
+    "autoprefixer": "^10.4.21",
+    "nodemon": "^2.0.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.7"
+  }
+}
