@@ -4,7 +4,7 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface HeaderProps {
   categories: { label: string; value: string }[];
@@ -13,6 +13,7 @@ interface HeaderProps {
 export default function Header({ categories }: HeaderProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [searchValue, setSearchValue] = useState(searchParams.get("q") || "");
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -23,12 +24,20 @@ export default function Header({ categories }: HeaderProps) {
     [searchParams]
   );
 
-  const handleSearch = (value: string) => {
-    router.push(`/?${createQueryString("q", value)}`);
-  };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const params = new URLSearchParams();
+      params.set("q", searchValue);
+      router.push(`/?${params.toString()}`);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchValue, router]);
 
   const handleCategoryChange = (value: string) => {
-    router.push(`/?${createQueryString("category", value)}`);
+    const params = new URLSearchParams();
+    params.set("category", value);
+    router.push(`/?${params.toString()}`);
   };
 
   return (
@@ -39,8 +48,8 @@ export default function Header({ categories }: HeaderProps) {
         <input
           type="text"
           placeholder="Search listings..."
-          defaultValue={searchParams.get("q") || ""}
-          onChange={(e) => handleSearch(e.target.value)}
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
           className="input flex-1"
         />
       </div>

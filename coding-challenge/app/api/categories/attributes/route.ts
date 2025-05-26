@@ -5,18 +5,23 @@ export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const categorySlug = searchParams.get("category");
+    let categoryId = searchParams.get("categoryId");
 
-    if (!categorySlug) {
+    let category = null;
+
+    if (!categorySlug && !categoryId) {
       return NextResponse.json(
         { message: "Category parameter is required" },
         { status: 400 }
       );
     }
 
-    // Get the category first
-    const category = await prisma.category.findUnique({
-      where: { slug: categorySlug },
-    });
+    if (categorySlug) {
+      // Get the category first
+      category = await prisma.category.findUnique({
+        where: { slug: categorySlug },
+      });
+    }
 
     if (!category) {
       return NextResponse.json(
@@ -24,38 +29,41 @@ export async function GET(request: NextRequest) {
         { status: 404 }
       );
     }
+    categoryId = category?.id;
 
-    // Get attributes and values using findMany
-    const [attributes, attributeValues] = await Promise.all([
-      prisma.categoryAttribute.findMany({
-        where: { categoryId: category.id },
-        orderBy: { order: "asc" },
-      }),
-      prisma.categoryAttributeValues.findMany({
-        where: { categoryId: category.id },
-      }),
-    ]);
+    if (categoryId) {
+      // Get attributes and values using findMany
+      const [attributes, attributeValues] = await Promise.all([
+        prisma.categoryAttribute.findMany({
+          where: { categoryId: categoryId },
+          orderBy: { order: "asc" },
+        }),
+        prisma.categoryAttributeValues.findMany({
+          where: { categoryId: categoryId },
+        }),
+      ]);
 
-    // Transform the data to combine attributes with their possible values
-    const transformedAttributes = attributes.map((attr) => {
-      const values = attributeValues.find((av) => av.attribute === attr.name);
-      return {
-        name: attr.name,
-        type: attr.type,
-        required: attr.required,
-        description: attr.description,
-        order: attr.order,
-        values: values?.values || [],
-      };
-    });
+      // Transform the data to combine attributes with their possible values
+      const transformedAttributes = attributes.map((attr) => {
+        const values = attributeValues.find((av) => av.attribute === attr.name);
+        return {
+          name: attr.name,
+          type: attr.type,
+          required: attr.required,
+          description: attr.description,
+          order: attr.order,
+          values: values?.values || [],
+        };
+      });
 
-    return NextResponse.json({
-      category: {
-        name: category.name,
-        slug: category.slug,
-      },
-      attributes: transformedAttributes,
-    });
+      return NextResponse.json({
+        category: {
+          name: category.name,
+          slug: category.slug,
+        },
+        attributes: transformedAttributes,
+      });
+    }
   } catch (error) {
     console.error("Error fetching category attributes:", error);
     return NextResponse.json(

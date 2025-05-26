@@ -30,3 +30,10 @@ export interface Category {
     [key: string]: Attribute;
   };
 }
+
+export interface Pagination {
+  total: number;
+  limit: number;
+  offset: number;
+}
+

@@ -1,14 +1,21 @@
-import React, { useMemo } from "react";
 import { Attribute } from "@/config/definitions";
 import { cn } from "@/utils/cn";
-import { BuildingStorefrontIcon, CheckIcon, CurrencyDollarIcon } from "@heroicons/react/24/outline";
+import {
+  BuildingStorefrontIcon,
+  CheckIcon
+} from "@heroicons/react/24/outline";
 import { useRouter, useSearchParams } from "next/navigation";
+import React, { useMemo } from "react";
 
 interface FilterPanelProps {
   attributes: Attribute[];
+  isLoading: boolean;
 }
 
-export const FilterPanel: React.FC<FilterPanelProps> = ({ attributes }) => {
+export const FilterPanel: React.FC<FilterPanelProps> = ({
+  attributes,
+  isLoading,
+}) => {
   const router = useRouter();
   const queryParams = useSearchParams();
 
@@ -16,25 +23,48 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({ attributes }) => {
     return attributes.find((attribute) => attribute.name === "brand")?.values;
   }, [attributes]);
 
-  const priceRange = useMemo(() => {
-    const defaultRange = ["1", "20000"];
-    return attributes.find((attribute) => attribute.name === "price_range")?.values || defaultRange;
-  }, [attributes]);
-
   const onChange = (name: string, value: string) => {
     const searchParams = new URLSearchParams(queryParams.toString());
-    searchParams.set(name, value);
+    if (queryParams.get(name) === value) {
+      searchParams.delete(name);
+    } else {
+      searchParams.delete("q");
+      searchParams.set(name, value);
+    }
     router.push(`?${searchParams.toString()}`);
   };
 
   const otherAttributes = useMemo(() => {
-    return attributes.filter((attribute) => 
-      attribute.name !== "brand" && attribute.name !== "price_range"
+    return attributes.filter(
+      (attribute) =>
+        attribute.name !== "brand" && attribute.name !== "price_range"
     );
   }, [attributes]);
 
+  if (isLoading) {
+    return (
+      <div className="flex w-52 flex-col gap-4">
+        <div className="skeleton h-4 w-28"></div>
+        <div className="skeleton h-4 w-full"></div>
+        <div className="skeleton h-4 w-full"></div>
+      </div>
+    );
+  }
+
+const clearFilters = (e: React.MouseEvent<HTMLButtonElement>) => {
+  e.preventDefault();
+  const searchParams = new URLSearchParams();
+  router.push(`?${searchParams.toString()}`);
+};
+
   return (
     <div className="space-y-6">
+      {attributes?.length > 0 && <button
+        className="btn btn-link my-0 ml-0 text-red-600"
+        onClick={clearFilters}
+      >
+        Clear Filters
+      </button>}
       {brands && (
         <div className="h-64 filter-panel-shadow p-4 rounded-sm flex flex-col gap-2">
           <span className="text-sm capitalize shrink-0 pb-2 border-gray-200 border-b">
@@ -63,37 +93,6 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({ attributes }) => {
           </ul>
         </div>
       )}
-
-     
-        <div className="filter-panel-shadow p-4 rounded-sm">
-          <span className="text-sm capitalize flex items-center gap-2 pb-2 border-gray-200 border-b">
-            <CurrencyDollarIcon className="w-5 h-5" color="gray" />
-            Price Range
-          </span>
-          <div className="flex items-center gap-2 mt-2">
-            <input
-              type="number"
-              min={priceRange[0]}
-              max={priceRange[1]}
-              placeholder="Min"
-              className="w-24 text-sm py-1 px-2 border border-gray-200 rounded-lg focus:outline-none focus:border-teal-400 flex-1"
-              onChange={(e) => onChange("price_range_min", e.target.value)}
-              value={queryParams.get("price_range_min") || ""}
-            />
-            <span className="text-gray-400">-</span>
-            <input
-              type="number"
-              min={priceRange[0]}
-              max={priceRange[1]}
-              placeholder="Max"
-              className="w-24 text-sm py-1 px-2 border border-gray-200 rounded-lg focus:outline-none focus:border-teal-400 flex-1"
-              onChange={(e) => onChange("price_range_max", e.target.value)}
-              value={queryParams.get("price_range_max") || ""}
-            />
-          </div>
-        </div>
-    
-
       {otherAttributes?.map((attribute) => (
         <div
           key={attribute.name}
@@ -104,10 +103,14 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({ attributes }) => {
             {attribute.values.map((value) => (
               <button
                 key={value}
-                onClick={() => onChange(attribute.name, value)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onChange(attribute.name, value);
+                }}
                 className={cn(
                   "text-sm py-1 px-2 border border-gray-200 rounded-lg cursor-pointer hover:border-teal-400",
-                  queryParams.get(attribute.name) === value && "border-teal-400 bg-teal-50"
+                  queryParams.get(attribute.name) === value &&
+                    "border-teal-400 bg-teal-50"
                 )}
               >
                 {value}
