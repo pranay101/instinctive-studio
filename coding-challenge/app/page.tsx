@@ -1,22 +1,23 @@
 "use client";
 
-import { Attribute, Category, GeneralObject } from "@/config/definitions";
+import { Attribute, Category, Listing } from "@/config/definitions";
 import { ListBulletIcon, Squares2X2Icon } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FilterPanel, Header, ListingCard } from "../components";
 
 export default function Home() {
-  const [query, setQuery] = useState("");
-  const [category, setCategory] = useState<string | null>(null);
-  const [filters, setFilters] = useState<GeneralObject>({});
-  const [results, setResults] = useState<GeneralObject[]>([]);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const [results, setResults] = useState<Listing[]>([]);
   const [attributes, setAttributes] = useState<Attribute[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchAttributes = async () => {
+      const category = searchParams.get("category");
       if (!category) return;
       try {
         const response = await fetch(
@@ -34,7 +35,7 @@ export default function Home() {
     };
 
     fetchAttributes();
-  }, [category]);
+  }, [searchParams.get("category")]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -57,9 +58,11 @@ export default function Home() {
     const fetchResults = async () => {
       setLoading(true);
       try {
+        const filters = searchParams.get("filters") || "";
+
         const params = new URLSearchParams({
-          q: query,
-          category: category || "",
+          q: searchParams.get("q") || "",
+          category: searchParams.get("category") || "",
           filters: JSON.stringify(filters),
         });
         const response = await fetch(`/api/search?${params}`);
@@ -67,9 +70,11 @@ export default function Home() {
           throw new Error("Failed to fetch results");
         }
         const data = await response.json();
+
+        const category = searchParams.get("category");
         if (!category) {
           const _categoryId = data?.listings?.[0]?.categoryId;
-          setCategory(categories.find((c) => c.id === _categoryId)?.slug || "");
+          router.push(`/?category=${_categoryId}`);
         }
         setResults(data.listings);
       } catch (error) {
@@ -81,27 +86,15 @@ export default function Home() {
     };
 
     fetchResults();
-  }, [query, category, filters]);
+  }, [searchParams]);
 
-  const handleFilterChange = (key: string, value: string) => {
-    setFilters((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-  };
-
-  console.log(attributes, "attributes");
-  console.log(category, "categories");
   return (
     <div className="w-full relative flex flex-col gap-6">
       <Header
-        value={query}
-        onChange={setQuery}
         categories={categories.map((c) => ({
           label: c.name,
           value: c.slug,
         }))}
-        onCategoryChange={setCategory}
       />
 
       <div className="w-full h-[320px] relative overflow-hidden rounded-lg">
@@ -137,10 +130,11 @@ export default function Home() {
               <Squares2X2Icon className="w-6 h-6 bg-gray-200 rounded-sm p-1" />
             </div>
             <select
-              defaultValue="Sort By"
-              className="select select-bordered border border-gray-200 rounded-md w-48"
+              disabled
+              defaultValue="Relevance"
+              className="select select-bordered border disabled:border-gray-200 rounded-md w-48"
             >
-              <option disabled={true}>Sort By</option>
+              <option>Relevance</option>
               <option>Price: Low to High</option>
               <option>Price: High to Low</option>
               <option>Newest</option>

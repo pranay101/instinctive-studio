@@ -3,20 +3,34 @@ import {
   HeartIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback } from "react";
 
 interface HeaderProps {
-  value: string;
-  onChange: (value: string) => void;
   categories: { label: string; value: string }[];
-  onCategoryChange: (value: string) => void;
 }
 
-export default function Header({
-  value,
-  onChange,
-  categories,
-  onCategoryChange,
-}: HeaderProps) {
+export default function Header({ categories }: HeaderProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+      return params.toString();
+    },
+    [searchParams]
+  );
+
+  const handleSearch = (value: string) => {
+    router.push(`/?${createQueryString("q", value)}`);
+  };
+
+  const handleCategoryChange = (value: string) => {
+    router.push(`/?${createQueryString("category", value)}`);
+  };
+
   return (
     <header className="flex justify-start items-center w-full flex-1 gap-6 p-4 sticky top-0 bg-white z-40 inset-0 shadow-sm">
       <h4 className="text-2xl font-bold text-teal-500">Shoes and TVs</h4>
@@ -25,15 +39,15 @@ export default function Header({
         <input
           type="text"
           placeholder="Search listings..."
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
+          defaultValue={searchParams.get("q") || ""}
+          onChange={(e) => handleSearch(e.target.value)}
           className="input flex-1"
         />
       </div>
       <select 
         className="select select-neutral w-36 border border-gray-200 rounded-lg"
-        value={categories.length > 0 ? "" : "no-categories"}
-        onChange={(e) => onCategoryChange(e.target.value)}
+        value={searchParams.get("category") || ""}
+        onChange={(e) => handleCategoryChange(e.target.value)}
       >
         <option disabled value="">
           {categories.length > 0 ? "Select a category" : "No categories found"}
