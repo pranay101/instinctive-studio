@@ -7,11 +7,18 @@ import {
 interface HeaderProps {
   value: string;
   onChange: (value: string) => void;
+  categories: { label: string; value: string }[];
+  onCategoryChange: (value: string) => void;
 }
 
-export default function Header({ value, onChange }: HeaderProps) {
+export default function Header({
+  value,
+  onChange,
+  categories,
+  onCategoryChange,
+}: HeaderProps) {
   return (
-    <header className="flex justify-start items-center w-full flex-1 gap-6 p-4">
+    <header className="flex justify-start items-center w-full flex-1 gap-6 p-4 sticky top-0 bg-white z-40 inset-0 shadow-sm">
       <h4 className="text-2xl font-bold text-teal-500">Shoes and TVs</h4>
       <div className="flex-1 flex items-center gap-2 px-2 input-bordered border border-gray-200 rounded-lg w-full">
         <MagnifyingGlassIcon className="w-4 h-4" />
@@ -23,13 +30,19 @@ export default function Header({ value, onChange }: HeaderProps) {
           className="input flex-1"
         />
       </div>
-      <select className="select select-neutral w-36 border border-gray-200 rounded-lg">
-        <option disabled selected>
-          Pick a color
+      <select 
+        className="select select-neutral w-36 border border-gray-200 rounded-lg"
+        value={categories.length > 0 ? "" : "no-categories"}
+        onChange={(e) => onCategoryChange(e.target.value)}
+      >
+        <option disabled value="">
+          {categories.length > 0 ? "Select a category" : "No categories found"}
         </option>
-        <option>Crimson</option>
-        <option>Amber</option>
-        <option>Velvet</option>
+        {categories.map((category) => (
+          <option key={category.value} value={category.value}>
+            {category.label}
+          </option>
+        ))}
       </select>
 
       <button className="">

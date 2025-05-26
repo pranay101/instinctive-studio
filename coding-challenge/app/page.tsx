@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Header, ListingCard, FilterPanel } from "../components";
-import { cn } from "@/utils/cn";
 import { Attribute, Category, GeneralObject } from "@/config/definitions";
+import { ListBulletIcon, Squares2X2Icon } from "@heroicons/react/24/outline";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { FilterPanel, Header, ListingCard } from "../components";
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -92,7 +93,7 @@ export default function Home() {
   console.log(attributes, "attributes");
   console.log(category, "categories");
   return (
-    <div className="w-full">
+    <div className="w-full relative flex flex-col gap-6">
       <Header
         value={query}
         onChange={setQuery}
@@ -102,24 +103,72 @@ export default function Home() {
         }))}
         onCategoryChange={setCategory}
       />
-      <section className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <aside className="col-span-1">
-          <FilterPanel
-            attributes={attributes || []}
-            onFilterChange={handleFilterChange}
-          />
+
+      <div className="w-full h-[320px] relative overflow-hidden rounded-lg">
+        <div className="absolute inset-0 bg-black/40 z-10"></div>
+        <div className="absolute top-1/2 -translate-y-1/2 left-10 z-20 max-w-xl">
+          <h2 className="text-white text-5xl font-bold mb-4">
+            Elevate Your Style
+          </h2>
+          <p className="text-white text-xl mb-6">
+            Discover the latest trends in fashion. From casual elegance to
+            statement pieces, find your perfect look.
+          </p>
+          <button className="bg-white text-black px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition-colors">
+            Shop Now
+          </button>
+        </div>
+        <Image
+          fill
+          src="https://images.unsplash.com/photo-1674302556189-a311b4ae2eda?q=80&w=1440&fit=crop"
+          alt="Fashion collection hero image"
+          className="object-cover h-full w-full"
+          priority
+        />
+      </div>
+      <section className="grid grid-cols-1 md:grid-cols-4 gap-10">
+        <aside className="col-span-1 sticky top-28 h-fit">
+          <FilterPanel attributes={attributes || []} />
         </aside>
         <main className="col-span-3">
-          <h1 className="text-3xl font-bold mb-6">B2B Marketplace Search</h1>
-          {loading ? (
-            <p className="text-center py-4">Loading...</p>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-              {results?.map((listing) => (
-                <ListingCard key={listing.id} listing={listing} />
-              ))}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 border border-gray-200 rounded-lg p-1 w-fit px-2">
+              <ListBulletIcon className="w-6 h-6" />
+              <Squares2X2Icon className="w-6 h-6 bg-gray-200 rounded-sm p-1" />
             </div>
-          )}
+            <select
+              defaultValue="Sort By"
+              className="select select-bordered border border-gray-200 rounded-md w-48"
+            >
+              <option disabled={true}>Sort By</option>
+              <option>Price: Low to High</option>
+              <option>Price: High to Low</option>
+              <option>Newest</option>
+              <option>Oldest</option>
+            </select>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+            {loading
+              ? Array.from({ length: 9 })
+                  .fill(0)
+                  .map((s, index) => (
+                    <div
+                      key={`${s}-${index}`}
+                      className="flex max-w-[312px] h-[400px] flex-col gap-4 bg-white border border-gray-200 rounded-lg w-full p-6 animate-pulse"
+                    >
+                      <div className="skeleton h-32 w-full bg-gray-100"></div>
+                      <div className="skeleton h-4 w-28 bg-gray-100"></div>
+                      <div className="skeleton h-4 w-full bg-gray-100"></div>
+                      <div className="skeleton h-4 w-full bg-gray-100"></div>
+                      <div className="skeleton h-4 w-full bg-gray-100"></div>
+                      <div className="skeleton h-4 w-full bg-gray-100"></div>
+                    </div>
+                  ))
+              : results?.map((listing) => (
+                  <ListingCard key={listing.id} listing={listing} />
+                ))}
+          </div>
         </main>
       </section>
     </div>

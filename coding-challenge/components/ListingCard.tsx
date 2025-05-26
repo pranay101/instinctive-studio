@@ -19,7 +19,7 @@ export default function ListingCard({ listing }: ListingCardProps) {
   };
 
   return (
-    <div className="w-full max-w-[312px] relative">
+    <div className="w-full max-w-[360px] relative">
       <Image
         src={listing.imageUrl}
         alt={listing.title}
