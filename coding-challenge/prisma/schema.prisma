@@ -11,11 +11,13 @@ generator client {
 }
 
 model Category {
-  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  id              String                    @id @default(auto()) @map("_id") @db.ObjectId
   name            String
-  slug            String    @unique
+  slug            String                    @unique
   attributeSchema Json // Array of attribute definitions
   listings        Listing[]
+  attributes      CategoryAttribute[]
+  attributeValues CategoryAttributeValues[]
 }
 
 model Listing {
@@ -28,5 +30,32 @@ model Listing {
   category    Category @relation(fields: [categoryId], references: [id])
   attributes  Json // Key-value object for category-specific attributes
   imageUrl    String
-  
+}
+
+model CategoryAttribute {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  categoryId  String   @db.ObjectId
+  category    Category @relation(fields: [categoryId], references: [id])
+  name        String // Name of the attribute (e.g., "brand", "size")
+  type        String // Type of the attribute (e.g., "string", "number")
+  required    Boolean // Whether this attribute is required
+  enum        Json? // Optional array of allowed values
+  description String? // Optional description of the attribute
+  order       Int // Order in which to display the attribute
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([categoryId, name])
+}
+
+model CategoryAttributeValues {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  categoryId String   @db.ObjectId
+  category   Category @relation(fields: [categoryId], references: [id])
+  attribute  String // Name of the attribute (e.g., "brand")
+  values     Json // Array of possible values for this attribute
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([categoryId, attribute])
 }

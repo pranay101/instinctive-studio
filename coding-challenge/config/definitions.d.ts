@@ -11,3 +11,21 @@ export interface Listing {
   imageUrl: string;
   description: string;
 }
+
+export interface Attribute {
+  name: string;
+  type: string;
+  required: boolean;
+  description: string;
+  order: number;
+  values: string[];
+}
+
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  attributeSchema: {
+    [key: string]: Attribute;
+  };
+}
