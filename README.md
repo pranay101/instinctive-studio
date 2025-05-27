@@ -4,7 +4,7 @@
 
 This project's UI design is inspired by the Stella Ecommerce Website design on Dribbble: [Stella Ecommerce Website](https://dribbble.com/shots/25001090-Stella-Ecommerce-Website)
 
-![B2B Marketplace Thumbnail](./thumbnail.png)
+![B2B Marketplace Thumbnail](./coding-challenge/thumbnail.png)
 
 ## Environment Setup
 
