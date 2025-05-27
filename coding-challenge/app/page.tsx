@@ -11,8 +11,22 @@ import {
   Squares2X2Icon,
 } from "@heroicons/react/24/outline";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { FilterPanel, Header, HeroBanner, ListingCard } from "../components";
+import { useEffect, useMemo, useState } from "react";
+import {
+  FilterPanel,
+  Header,
+  HeroBanner,
+  ListingCard,
+  Skelaton,
+} from "../components";
+
+const SORT_OPTIONS = [
+  "Relevance",
+  "Price: Low to High",
+  "Price: High to Low",
+  "Newest",
+  "Oldest",
+];
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -128,6 +142,13 @@ export default function Home() {
     fetchResults();
   }, [searchParams]);
 
+  const isInitialLoad = useMemo(() => {
+    return (
+      !isValidString(searchParams.get("q")) &&
+      !isValidString(searchParams.get("category"))
+    );
+  }, [searchParams]);
+
   return (
     <div className="w-full relative flex flex-col gap-6">
       <Header
@@ -179,11 +200,11 @@ export default function Home() {
                 defaultValue="Relevance"
                 className="select select-bordered border disabled:border-gray-200 rounded-md w-48"
               >
-                <option>Relevance</option>
-                <option>Price: Low to High</option>
-                <option>Price: High to Low</option>
-                <option>Newest</option>
-                <option>Oldest</option>
+                {SORT_OPTIONS.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
               </select>
             </div>
           )}
@@ -196,22 +217,9 @@ export default function Home() {
             {loading ? (
               Array.from({ length: 9 })
                 .fill(0)
-                .map((s, index) => (
-                  <div
-                    key={`${s}-${index}`}
-                    className="flex max-w-[312px] h-[400px] flex-col gap-4 bg-white border border-gray-200 rounded-lg w-full p-6 animate-pulse"
-                  >
-                    <div className="skeleton h-32 w-full bg-gray-100"></div>
-                    <div className="skeleton h-4 w-28 bg-gray-100"></div>
-                    <div className="skeleton h-4 w-full bg-gray-100"></div>
-                    <div className="skeleton h-4 w-full bg-gray-100"></div>
-                    <div className="skeleton h-4 w-full bg-gray-100"></div>
-                    <div className="skeleton h-4 w-full bg-gray-100"></div>
-                  </div>
-                ))
+                .map((s, index) => <Skelaton key={index} />)
             ) : results?.length === 0 ? (
-              !isValidString(searchParams.get("q")) &&
-              !isValidString(searchParams.get("category")) ? (
+              isInitialLoad ? (
                 <div className="col-span-full flex flex-col items-center justify-center py-12">
                   <MagnifyingGlassIcon className="w-16 h-16 text-gray-400 mb-4" />
                   <h3 className="text-lg font-medium text-gray-900">

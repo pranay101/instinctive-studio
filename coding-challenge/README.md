@@ -1,22 +1,5 @@
 # B2B Marketplace Prototype
 
-A modern B2B marketplace where buyers can search and filter through a large catalogue of business listings. Built with Next.js, Prisma, and MongoDB.
-
-## Features
-
-- 🔍 Full-text search with category-specific filters
-- 🏷️ Dynamic attribute-based filtering
-- 📱 Responsive design with modern UI
-- 🔄 Real-time search and filter updates
-- 📊 Efficient data modeling with proper indexing
-- 🛠️ Type-safe API endpoints with Zod validation
-
-## Prerequisites
-
-- Node.js (v18 or later)
-- MongoDB (v6 or later)
-- npm or yarn
-
 ## Environment Setup
 
 1. Create a `.env` file in the root directory with the following variables:
