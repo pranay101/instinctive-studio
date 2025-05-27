@@ -3,6 +3,7 @@ import { MapPinIcon, HeartIcon as HeartOutlineIcon } from "@heroicons/react/24/o
 import { HeartIcon as HeartSolidIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { useState } from "react";
+import { toast } from "sonner";
 
 interface ListingCardProps {
   listing: Listing;
@@ -10,12 +11,10 @@ interface ListingCardProps {
 
 export default function ListingCard({ listing }: ListingCardProps) {
   const [isFavorite, setIsFavorite] = useState(Math.random() > 0.5);
-  const [showToast, setShowToast] = useState(false);
 
   const handleFavoriteClick = () => {
     setIsFavorite(!isFavorite);
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 2000);
+    toast.success(isFavorite ? 'Removed from favorites' : 'Added to favorites');
   };
 
   return (
@@ -48,14 +47,6 @@ export default function ListingCard({ listing }: ListingCardProps) {
           <MapPinIcon className="w-4 h-4" /> {listing.location}
         </p>
       </div>
-
-      {showToast && (
-        <div className="toast toast-end z-50">
-          <div className="alert alert-success">
-            <span>{isFavorite ? 'Added to favorites' : 'Removed from favorites'}</span>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

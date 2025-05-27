@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
         );
       }
 
-      mongoFilter.categoryId = { $oid: category.id };
+      mongoFilter.categoryId = category.id;
     }
 
     // Add dynamic attribute filters

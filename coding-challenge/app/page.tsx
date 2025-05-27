@@ -12,6 +12,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
 import {
   FilterPanel,
   Header,
@@ -61,6 +62,7 @@ export default function Home() {
         setAttributes([]);
         setLoadingFilters(false);
         console.error("Error fetching categories:", error);
+        toast.error("Failed to load category attributes");
       } finally {
         setLoadingFilters(false);
       }
@@ -80,6 +82,7 @@ export default function Home() {
         setCategories(data.categories);
       } catch (error) {
         console.error("Error fetching categories:", error);
+        toast.error("Failed to load categories");
       }
     };
 
@@ -134,6 +137,7 @@ export default function Home() {
         console.error("Error fetching results:", error);
         setResults([]);
         setPagination({ total: 0, limit: 0, offset: 0 });
+        toast.error("Failed to load search results");
       } finally {
         setLoading(false);
       }
@@ -200,8 +204,8 @@ export default function Home() {
                 defaultValue="Relevance"
                 className="select select-bordered border disabled:border-gray-200 rounded-md w-48"
               >
-                {SORT_OPTIONS.map((option) => (
-                  <option key={option} value={option}>
+                {SORT_OPTIONS.map((option, index) => (
+                  <option key={`${option}-${index}`} value={option}>
                     {option}
                   </option>
                 ))}
@@ -217,7 +221,7 @@ export default function Home() {
             {loading ? (
               Array.from({ length: 9 })
                 .fill(0)
-                .map((s, index) => <Skelaton key={index} />)
+                .map((_, index) => <Skelaton key={`skeleton-${index}`} />)
             ) : results?.length === 0 ? (
               isInitialLoad ? (
                 <div className="col-span-full flex flex-col items-center justify-center py-12">
@@ -244,7 +248,7 @@ export default function Home() {
               )
             ) : (
               results?.map((listing) => (
-                <ListingCard key={listing.id} listing={listing} />
+                <ListingCard key={listing._id.$oid} listing={listing} />
               ))
             )}
           </div>

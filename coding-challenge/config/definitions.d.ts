@@ -3,7 +3,7 @@ export interface GeneralObject {
 }
 
 export interface Listing {
-  id: string;
+  _id: { $oid: string };
   title: string;
   price: number;
   location: string;
@@ -36,4 +36,3 @@ export interface Pagination {
   limit: number;
   offset: number;
 }
-
