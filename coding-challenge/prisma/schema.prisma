@@ -1,20 +1,23 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 model Category {
-  id              String                    @id @default(auto()) @map("_id") @db.ObjectId
-  name            String
-  slug            String                    @unique
-  attributeSchema Json // Array of attribute definitions
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
   listings        Listing[]
   attributes      CategoryAttribute[]
   attributeValues CategoryAttributeValues[]
@@ -25,37 +28,49 @@ model Listing {
   title       String
   description String
   price       Float
-  location    String
+  images      String[]
   categoryId  String   @db.ObjectId
-  category    Category @relation(fields: [categoryId], references: [id])
-  attributes  Json // Key-value object for category-specific attributes
-  imageUrl    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  attributes  Json // Store dynamic attributes as JSON
+
+  // Relations
+  category Category @relation(fields: [categoryId], references: [id])
+
+  @@index([categoryId])
+  @@index([title])
+  @@index([price])
 }
 
 model CategoryAttribute {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  type        String // e.g., "text", "number", "select"
+  required    Boolean  @default(false)
+  description String?
+  order       Int      @default(0)
   categoryId  String   @db.ObjectId
-  category    Category @relation(fields: [categoryId], references: [id])
-  name        String // Name of the attribute (e.g., "brand", "size")
-  type        String // Type of the attribute (e.g., "string", "number")
-  required    Boolean // Whether this attribute is required
-  enum        Json? // Optional array of allowed values
-  description String? // Optional description of the attribute
-  order       Int // Order in which to display the attribute
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  // Relations
+  category Category @relation(fields: [categoryId], references: [id])
+
   @@unique([categoryId, name])
+  @@index([categoryId])
 }
 
 model CategoryAttributeValues {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  attribute  String // Name of the attribute
+  values     String[] // Array of possible values
   categoryId String   @db.ObjectId
-  category   Category @relation(fields: [categoryId], references: [id])
-  attribute  String // Name of the attribute (e.g., "brand")
-  values     Json // Array of possible values for this attribute
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
+  // Relations
+  category Category @relation(fields: [categoryId], references: [id])
+
   @@unique([categoryId, attribute])
+  @@index([categoryId])
 }

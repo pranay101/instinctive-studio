@@ -19,8 +19,6 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    console.log(filter, "filter", search, "search");
-
     // MongoDB-style filter
     const mongoFilter: any = {};
 

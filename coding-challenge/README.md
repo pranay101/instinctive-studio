@@ -1,13 +1,30 @@
 # B2B Marketplace Prototype
 
-This project is a prototype for a B2B marketplace where buyers can search a large catalogue of business listings.
+A modern B2B marketplace where buyers can search and filter through a large catalogue of business listings. Built with Next.js, Prisma, and MongoDB.
+
+## Features
+
+- 🔍 Full-text search with category-specific filters
+- 🏷️ Dynamic attribute-based filtering
+- 📱 Responsive design with modern UI
+- 🔄 Real-time search and filter updates
+- 📊 Efficient data modeling with proper indexing
+- 🛠️ Type-safe API endpoints with Zod validation
 
 ## Prerequisites
 
-- Node.js (v14 or later)
-- MongoDB (running locally)
+- Node.js (v18 or later)
+- MongoDB (v6 or later)
+- npm or yarn
 
-## Setup
+## Environment Setup
+
+1. Create a `.env` file in the root directory with the following variables:
+   ```env
+   DATABASE_URL="mongodb://localhost:27017/b2b-marketplace"
+   ```
+
+## Installation
 
 1. **Clone the repository**
 
@@ -22,41 +39,108 @@ This project is a prototype for a B2B marketplace where buyers can search a larg
    npm install
    ```
 
-3. **Start MongoDB**
+3. **Generate Prisma client**
 
-   Ensure MongoDB is running locally on the default port (27017).
+   ```bash
+   npx prisma generate
+   ```
 
-4. **Seed the database**
+4. **Push the database schema**
+
+   ```bash
+   npx prisma db push
+   ```
+
+5. **Seed the database**
 
    ```bash
    npm run seed
    ```
 
-5. **Start the development server**
-
+6. **Start the development server**
    ```bash
    npm run dev
    ```
 
-   The application will be available at [http://localhost:3000](http://localhost:3000).
+The application will be available at [http://localhost:3000](http://localhost:3000).
 
 ## Project Structure
 
-- `pages/api/search.js`: API endpoint for search and filtering
-- `pages/search.js`: Next.js page with search bar and filter panel
-- `components/`: Reusable UI components
-- `prisma/schema.prisma`: Data models
-- `seed.js`: Script to populate the database with sample data
+```
+coding-challenge/
+├── app/                    # Next.js 13 app directory
+│   ├── api/               # API routes
+│   │   ├── categories/    # Category-related endpoints
+│   │   └── search/        # Search and filter endpoints
+│   └── page.tsx           # Main page component
+├── components/            # Reusable UI components
+├── lib/                   # Utility functions and configurations
+├── prisma/               # Database schema and migrations
+└── public/               # Static assets
+```
 
-## Features
+## API Documentation
 
-- Full-text search
-- Dynamic filtering based on category-specific attributes
-- Facet metadata for filtering
+### Search Endpoint
 
-## Bonus Features
+`GET /api/search`
 
-- Pagination
-- Relevance sorting
-- Skeleton loaders
-- Error boundaries
+Query Parameters:
+
+- `q` (optional): Search query
+- `category` (optional): Category slug
+- `offset` (optional): Pagination offset (default: 0)
+- `limit` (optional): Results per page (default: 10)
+- `filters` (optional): JSON string of attribute filters
+
+### Categories Endpoint
+
+`GET /api/categories`
+
+Returns all available categories with their attributes.
+
+### Category Attributes Endpoint
+
+`GET /api/categories/attributes?category=<slug>`
+
+Returns attributes and possible values for a specific category.
+
+## Development
+
+### Code Style
+
+- Use TypeScript for type safety
+- Follow the existing component structure
+- Add proper error handling and loading states
+- Include comments for complex logic
+
+### Testing
+
+Run the test suite:
+
+```bash
+npm test
+```
+
+### Database Management
+
+- Use Prisma Studio to view/edit data:
+  ```bash
+  npx prisma studio
+  ```
+- Reset the database:
+  ```bash
+  npx prisma db push --force-reset
+  ```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## License
+
+MIT
