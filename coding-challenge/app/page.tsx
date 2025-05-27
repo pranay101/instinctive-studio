@@ -29,6 +29,11 @@ const SORT_OPTIONS = [
   "Oldest",
 ];
 
+const ITEMS_PER_PAGE_OPTIONS = [10, 20, 30, 50] as const;
+type ItemsPerPage = (typeof ITEMS_PER_PAGE_OPTIONS)[number];
+
+const ITEMS_PER_PAGE = 9;
+
 export default function Home() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -101,16 +106,22 @@ export default function Home() {
       try {
         const filters = Object.fromEntries(
           Array.from(searchParams.entries()).filter(
-            ([key]) => !["q", "category"].includes(key)
+            ([key]) => !["q", "category", "offset"].includes(key)
           )
         );
+
+        const offset = searchParams.get("offset")
+          ? Number(searchParams.get("offset"))
+          : 0;
 
         const params = new URLSearchParams({
           q: searchParams.get("q") || "",
           category: searchParams.get("category") || "",
           filters: JSON.stringify(filters),
         });
-        const response = await fetch(`/api/search?${params}`);
+        const response = await fetch(
+          `/api/search?${params}&offset=${offset}&limit=${ITEMS_PER_PAGE}`
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch results");
         }
@@ -153,6 +164,47 @@ export default function Home() {
     );
   }, [searchParams]);
 
+  const handlePageChange = (newOffset: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("offset", newOffset.toString());
+    router.push(`/?${params.toString()}`);
+  };
+
+  const totalPages = Math.ceil(pagination.total / pagination.limit);
+  const currentPage = Math.floor(pagination.offset / pagination.limit) + 1;
+
+  // Calculate visible page numbers
+  const getVisiblePages = () => {
+    const delta = 2; // Number of pages to show on each side of current page
+    const range: number[] = [];
+    const rangeWithDots: (number | string)[] = [];
+    let l: number | undefined;
+
+    for (let i = 1; i <= totalPages; i++) {
+      if (
+        i === 1 ||
+        i === totalPages ||
+        (i >= currentPage - delta && i <= currentPage + delta)
+      ) {
+        range.push(i);
+      }
+    }
+
+    range.forEach((i) => {
+      if (l) {
+        if (i - l === 2) {
+          rangeWithDots.push(l + 1);
+        } else if (i - l !== 1) {
+          rangeWithDots.push("...");
+        }
+      }
+      rangeWithDots.push(i);
+      l = i;
+    });
+
+    return rangeWithDots;
+  };
+
   return (
     <div className="w-full relative flex flex-col gap-6">
       <Header
@@ -192,12 +244,22 @@ export default function Home() {
           </>
         </aside>
 
-        <main className="col-span-3">
+        <main className="col-span-3 pb-10">
+          {results.length > 0 && totalPages > 1 && (
+            <div className="text-lg font-medium text-gray-600 mb-6">
+              Showing {pagination.offset + 1} to{" "}
+              {Math.min(pagination.offset + pagination.limit, pagination.total)}{" "}
+              of {pagination.total} items
+            </div>
+          )}
+
           {results.length > 0 && (
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 border border-gray-200 rounded-lg p-1 w-fit px-2">
-                <ListBulletIcon className="w-6 h-6" />
-                <Squares2X2Icon className="w-6 h-6 bg-gray-200 rounded-sm p-1" />
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 border border-gray-200 rounded-lg p-1 w-fit px-2">
+                  <ListBulletIcon className="w-6 h-6" />
+                  <Squares2X2Icon className="w-6 h-6 bg-gray-200 rounded-sm p-1" />
+                </div>
               </div>
               <select
                 disabled
@@ -219,7 +281,7 @@ export default function Home() {
             )}
           >
             {loading ? (
-              Array.from({ length: 9 })
+              Array.from({ length: pagination.limit })
                 .fill(0)
                 .map((_, index) => <Skelaton key={`skeleton-${index}`} />)
             ) : results?.length === 0 ? (
@@ -252,6 +314,36 @@ export default function Home() {
               ))
             )}
           </div>
+
+          {/* Pagination */}
+          {results.length > 0 && totalPages > 1 && (
+            <div className="flex join gap-2 mt-10 justify-center">
+              {getVisiblePages().map((page, index) =>
+                page === "..." ? (
+                  <button
+                    key={`ellipsis-${index}`}
+                    className="bg-gray-100 p-2"
+                    disabled
+                  >
+                    ...
+                  </button>
+                ) : (
+                  <button
+                    key={page}
+                    className={`bg-gray-100 py-2 px-4 rounded-md border border-gray-200 cursor-pointer ${
+                      currentPage === page ? "bg-teal-50 border-teal-400" : ""
+                    }`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handlePageChange((Number(page) - 1) * pagination.limit);
+                    }}
+                  >
+                    {page}
+                  </button>
+                )
+              )}
+            </div>
+          )}
         </main>
       </section>
     </div>
