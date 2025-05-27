@@ -1,5 +1,8 @@
 import { Listing } from "@/config";
-import { MapPinIcon, HeartIcon as HeartOutlineIcon } from "@heroicons/react/24/outline";
+import {
+  MapPinIcon,
+  HeartIcon as HeartOutlineIcon,
+} from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolidIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { useState } from "react";
@@ -14,7 +17,7 @@ export default function ListingCard({ listing }: ListingCardProps) {
 
   const handleFavoriteClick = () => {
     setIsFavorite(!isFavorite);
-    toast.success(isFavorite ? 'Removed from favorites' : 'Added to favorites');
+    toast.success(isFavorite ? "Removed from favorites" : "Added to favorites");
   };
 
   return (
@@ -26,17 +29,22 @@ export default function ListingCard({ listing }: ListingCardProps) {
         height={500}
         className="w-full h-[400px] object-cover rounded-lg"
       />
+      <button
+        className="cursor-pointer absolute top-4 right-4 bg-white p-2 rounded-full z-10"
+        onClick={handleFavoriteClick}
+      >
+        {isFavorite ? (
+          <HeartSolidIcon className="w-6 h-6 fill-red-500" />
+        ) : (
+          <HeartOutlineIcon className="w-6 h-6 stroke-red-500" />
+        )}
+      </button>
 
-      <div className="flex justify-between items-center mt-6">
+      <div className=" mt-6">
         <h3 className="font-semibold ">{listing.title}</h3>
-
-        <button className="cursor-pointer" onClick={handleFavoriteClick}>
-          {isFavorite ? (
-            <HeartSolidIcon className="w-6 h-6 fill-red-500" />
-          ) : (
-            <HeartOutlineIcon className="w-6 h-6 stroke-red-500" />
-          )}
-        </button>
+        <p className="text-gray-500 text-xs">
+          {listing.description.slice(0, 100)}...
+        </p>
       </div>
 
       <div className="flex justify-between items-center mt-4">
@@ -47,6 +55,14 @@ export default function ListingCard({ listing }: ListingCardProps) {
           <MapPinIcon className="w-4 h-4" /> {listing.location}
         </p>
       </div>
+
+      <ul className="text-xs flex gap-2 items-center flex-wrap text-green-800 mt-4">
+        {Object.entries(listing.attributes).map(([key, value]) => (
+          <li key={key} className="bg-green-100 py-1 px-3 rounded-full">
+            {value}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
