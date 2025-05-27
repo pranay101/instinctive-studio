@@ -1,5 +1,8 @@
 # B2B Marketplace Prototype
 
+## Design Inspiration
+This project's UI design is inspired by the Stella Ecommerce Website design on Dribbble: [Stella Ecommerce Website](https://dribbble.com/shots/25001090-Stella-Ecommerce-Website)
+
 ## Environment Setup
 
 1. Create a `.env` file in the root directory with the following variables:
@@ -48,82 +51,3 @@
 The application will be available at [http://localhost:3000](http://localhost:3000).
 
 ## Project Structure
-
-```
-coding-challenge/
-├── app/                    # Next.js 13 app directory
-│   ├── api/               # API routes
-│   │   ├── categories/    # Category-related endpoints
-│   │   └── search/        # Search and filter endpoints
-│   └── page.tsx           # Main page component
-├── components/            # Reusable UI components
-├── lib/                   # Utility functions and configurations
-├── prisma/               # Database schema and migrations
-└── public/               # Static assets
-```
-
-## API Documentation
-
-### Search Endpoint
-
-`GET /api/search`
-
-Query Parameters:
-
-- `q` (optional): Search query
-- `category` (optional): Category slug
-- `offset` (optional): Pagination offset (default: 0)
-- `limit` (optional): Results per page (default: 10)
-- `filters` (optional): JSON string of attribute filters
-
-### Categories Endpoint
-
-`GET /api/categories`
-
-Returns all available categories with their attributes.
-
-### Category Attributes Endpoint
-
-`GET /api/categories/attributes?category=<slug>`
-
-Returns attributes and possible values for a specific category.
-
-## Development
-
-### Code Style
-
-- Use TypeScript for type safety
-- Follow the existing component structure
-- Add proper error handling and loading states
-- Include comments for complex logic
-
-### Testing
-
-Run the test suite:
-
-```bash
-npm test
-```
-
-### Database Management
-
-- Use Prisma Studio to view/edit data:
-  ```bash
-  npx prisma studio
-  ```
-- Reset the database:
-  ```bash
-  npx prisma db push --force-reset
-  ```
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
-
-## License
-
-MIT
